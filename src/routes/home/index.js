@@ -10,12 +10,13 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
+import {fetchNews} from '../../actions/home';
 
 export default {
 
   path: '/',
 
-  async action({ fetch }) {
+  async action({ store }) {
     /*const resp = await fetch('/graphql', {
       body: JSON.stringify({
         query: '{news{title,link,content}}',
@@ -23,6 +24,15 @@ export default {
     });
     const { data } = await resp.json();
     if (!data || !data.news) throw new Error('Failed to load the news feed.'); news={data.news}*/
+    //const data = await getVideos();
+    /*const resp = await fetch('/graphql', {
+      body: JSON.stringify({
+        query: '{videos{title,link,content}}',
+      }),
+    });
+    const { data } = await resp.json();*/
+    store.dispatch(fetchNews());
+
     return {
       title: 'React Starter Kit',
       component: <Layout><Home /></Layout>,

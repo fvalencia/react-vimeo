@@ -27,6 +27,10 @@ export default function createLogger() {
   // eslint-disable-next-line no-unused-vars
   return store => next => (action) => {
     let formattedPayload = '';
+    //console.log('Action',action);
+    if(!action){
+      action = { type: 'FETCH_ACTION' };
+    }
     const actionFormatter = actionFormatters[action.type];
     if (typeof actionFormatter === 'function') {
       formattedPayload = actionFormatter(action);

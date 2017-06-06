@@ -14,6 +14,10 @@ import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo-small.png';
 import logoUrl2x from './logo-small@2x.png';
+import { AppBar } from 'react-toolbox';
+import appBarStyles from 'react-toolbox/lib/app_bar/theme.css';
+import buttonStyles from 'react-toolbox/lib/button/theme.css';
+import rippleStyles from 'react-toolbox/lib/ripple/theme.css';
 //<Navigation />
 /*
 
@@ -22,11 +26,7 @@ import logoUrl2x from './logo-small@2x.png';
             <p className={s.bannerDesc}>Complex web apps made easy</p>
           </div>
 
-*/
-class Header extends React.Component {
-  render() {
-    return (
-      <div className={s.root}>
+          <div className={s.root}>
         <div className={s.container}>
           
           <Link className={s.brand} to="/">
@@ -35,8 +35,14 @@ class Header extends React.Component {
           </Link>
         </div>
       </div>
+
+*/
+class Header extends React.Component {
+  render() {
+    return (
+      <AppBar leftIcon='menu' onLeftIconClick={this.props.toggle} theme={s} />
     );
   }
 }
 
-export default withStyles(s)(Header);
+export default withStyles(appBarStyles, buttonStyles, rippleStyles, s)(Header);

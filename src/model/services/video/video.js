@@ -6,7 +6,7 @@ export async function getVideos(graphqlRequest){
   		name,
 		description,
 		duration,
-		pictures{
+		picture{
 			width,
 			height,
 			link,

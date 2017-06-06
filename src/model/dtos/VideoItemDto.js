@@ -13,7 +13,7 @@ const VideoItemDto = new ObjectType({
     name: { type: new NonNull(StringType) },
     description: { type: StringType },
     duration: { type: new NonNull(IntType) },
-    pictures: { 
+    picture: { 
       type: new ObjectType({
         name: 'PictureItem',
         fields: {

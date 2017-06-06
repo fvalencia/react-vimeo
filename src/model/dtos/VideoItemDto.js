@@ -13,7 +13,7 @@ const VideoItemDto = new ObjectType({
     name: { type: new NonNull(StringType) },
     description: { type: StringType },
     duration: { type: new NonNull(IntType) },
-    pictures: { 
+    pictures: {
       type: new ObjectType({
         name: 'PictureItem',
         fields: {
@@ -21,6 +21,14 @@ const VideoItemDto = new ObjectType({
           height: { type: IntType},
           link: { type: StringType},
           link_with_play_button: { type: StringType},
+        }
+      })
+    },
+    embed: {
+      type: new ObjectType({
+        name: 'Embed',
+        fields: {
+          html: { type: StringType},
         }
       })
     }

@@ -13,12 +13,14 @@ import {
 } from 'graphql';
 
 import videos from './queries/video/video';
+import detail from './queries/detail/detail';
 
 const schema = new Schema({
   query: new ObjectType({
     name: 'Query',
     fields: {
       videos,
+      detail,
     },
   }),
 });

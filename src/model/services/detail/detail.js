@@ -1,6 +1,7 @@
 
 export async function getDetail(videoId, graphqlRequest){
   console.log('videoId', videoId);
+  //(videoId: videoId)
   const resp = await graphqlRequest(
   	`{
       detail(videoId: ${videoId}) {

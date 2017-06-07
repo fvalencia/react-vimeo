@@ -29,10 +29,14 @@ const videos = {
     if ((new Date() - lastFetchTime) > 1000 * 60 * 10 /* 10 mins */) {
       lastFetchTime = new Date();
       lastFetchTask = fetch(url, fetchConfig)
-        .then(response => {console.log(response); return response.json()})
+        .then(response => { return response.json()})
         .then((data) => {
           if (data.total > 0 && data.data) {
             items = data.data;
+            items = items.map(e => {
+              e.picture = e.pictures.sizes[2];
+              return e;
+            });
           }
 
           lastFetchTask = null;

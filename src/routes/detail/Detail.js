@@ -17,16 +17,13 @@ class Detail extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <h1>Detail Video</h1>
-          {this.props.detail &&
-            <div>
-              <h2>{this.props.detail.name}</h2>
-              <div dangerouslySetInnerHTML={{__html: this.props.detail.embed.html}}></div>
-              <p>{this.props.detail.description}</p>
-            </div>
-          }
-        </div>
+        {this.props.detail &&
+          <div className={s.container}>
+            <h1>{this.props.detail.name}</h1>
+            <div dangerouslySetInnerHTML={{__html: this.props.detail.embed.html}}></div>
+            <p className={s.description}>{this.props.detail.description}</p>
+          </div>
+        }
       </div>
     );
   }

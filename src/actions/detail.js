@@ -1,18 +1,18 @@
 /* eslint-disable import/prefer-default-export */
 import {getDetail} from '../model/services/detail/detail';
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
+export const REQUEST_DETAIL_VIDEO = 'REQUEST_DETAIL_VIDEO'
 function requestDetail() {
   return {
-    type: REQUEST_POSTS
+    type: REQUEST_DETAIL_VIDEO
   }
 }
 
 
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const RECEIVE_DETAIL_VIDEO = 'RECEIVE_DETAIL_VIDEO'
 function receiveDetail(json) {
   return {
-    type: RECEIVE_POSTS,
+    type: RECEIVE_DETAIL_VIDEO,
     payload: {
       detail: json.detail,
       receivedAt: Date.now()

@@ -1,4 +1,4 @@
-import { GraphQLString as StringType } from 'graphql';
+import { GraphQLString as StringType, GraphQLInt as IntType } from 'graphql';
 import fetch from 'isomorphic-fetch';
 import VideoItemDto from '../../dtos/VideoItemDto';
 
@@ -13,7 +13,7 @@ const fetchConfig = {
 };
 
 // React.js News Feed (RSS)
-const url = 'https://api.vimeo.com/videos/94502406';
+const url = 'https://api.vimeo.com/videos/';
 
 let item = {};
 let lastFetchTask;
@@ -21,15 +21,25 @@ let lastFetchTime = new Date(1970, 0, 1);
 
 const detail = {
   type: VideoItemDto,
-  resolve(headers, params, ...args))  {
-    console.log('args', args);
+  args: {
+    videoId:{
+        type : IntType,
+    }
+  },
+  resolve(headers, params, ...args)  {
+    if(!params.videoId){
+      console.log('Error'); //Poner un throw here
+    }
+
+    let fetchUrl = `${url}${params.videoId}`;
+
     if (lastFetchTask) {
       return lastFetchTask;
     }
 
     if ((new Date() - lastFetchTime) > 1000 * 60 * 10 /* 10 mins */) {
       lastFetchTime = new Date();
-      lastFetchTask = fetch(url, fetchConfig)
+      lastFetchTask = fetch(fetchUrl, fetchConfig)
         .then(response => {return response.json()})
         .then((data) => {
           if (data) {

@@ -14,10 +14,10 @@ import {fetchDetail} from '../../actions/detail';
 
 export default {
 
-  path: '/detail',
+  path: '/detail/:videoId',
 
-  async action({ store }) {
-    store.dispatch(fetchDetail());
+  async action(context) {
+    context.store.dispatch(fetchDetail(context.params.videoId));
 
     return {
       title: 'Video Detail',

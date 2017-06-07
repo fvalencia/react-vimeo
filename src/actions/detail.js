@@ -20,10 +20,10 @@ function receiveDetail(json) {
   }
 }
 
-export function fetchDetail() {
+export function fetchDetail(videoId) {
   return (dispatch, getState, {graphqlRequest}) => {
     dispatch(requestDetail());
-    return getDetail(graphqlRequest).then(detail => {
+    return getDetail(videoId, graphqlRequest).then(detail => {
       return dispatch(receiveDetail(detail));
     });
   }

@@ -19,7 +19,6 @@ class Detail extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>Detail Video</h1>
-
           {this.props.detail &&
             <div>
               <h2>{this.props.detail.name}</h2>
@@ -27,7 +26,6 @@ class Detail extends React.Component {
               <p>{this.props.detail.description}</p>
             </div>
           }
-
         </div>
       </div>
     );
@@ -35,7 +33,6 @@ class Detail extends React.Component {
 }
 
 function mapStateToProps(state){
-  console.log('state', state);
   return {
     detail: state.detail.data
   };

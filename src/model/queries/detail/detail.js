@@ -1,4 +1,4 @@
-import { GraphQLList as List } from 'graphql';
+import { GraphQLString as StringType } from 'graphql';
 import fetch from 'isomorphic-fetch';
 import VideoItemDto from '../../dtos/VideoItemDto';
 
@@ -21,7 +21,8 @@ let lastFetchTime = new Date(1970, 0, 1);
 
 const detail = {
   type: VideoItemDto,
-  resolve() {
+  resolve(headers, params, ...args))  {
+    console.log('args', args);
     if (lastFetchTask) {
       return lastFetchTask;
     }
@@ -31,7 +32,7 @@ const detail = {
       lastFetchTask = fetch(url, fetchConfig)
         .then(response => {return response.json()})
         .then((data) => {
-          if (data.name) {
+          if (data) {
             item = data;
           }
 
@@ -43,7 +44,7 @@ const detail = {
           throw err;
         });
 
-      if (item.name) {
+      if (item) {
         return item;
       }
 

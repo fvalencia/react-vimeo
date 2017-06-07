@@ -22,7 +22,7 @@ class Detail extends React.Component {
           {this.props.detail &&
             <div>
               <h2>{this.props.detail.name}</h2>
-              <p>{this.props.detail.embed.html}</p>
+              <div dangerouslySetInnerHTML={{__html: this.props.detail.embed.html}}></div>
               <p>{this.props.detail.description}</p>
             </div>
           }

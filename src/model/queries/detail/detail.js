@@ -21,7 +21,7 @@ let lastFetchTime = new Date(1970, 0, 1);
 
 const detail = {
   type: VideoItemDto,
-  resolve(headers, params, ...args))  {
+  resolve(headers, params, args)  {
     console.log('args', args);
     if (lastFetchTask) {
       return lastFetchTask;

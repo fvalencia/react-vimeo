@@ -11,6 +11,7 @@ import React from 'react';
 import Detail from './Detail';
 import Layout from '../../components/Layout';
 import {fetchDetail} from '../../actions/detail';
+import {fetchComments} from '../../actions/comments';
 
 export default {
 
@@ -18,6 +19,7 @@ export default {
 
   async action(context) {
     context.store.dispatch(fetchDetail(context.params.videoId));
+    context.store.dispatch(fetchComments(context.params.videoId));
 
     return {
       title: 'Video Detail',

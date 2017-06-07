@@ -31,6 +31,15 @@ const VideoItemDto = new ObjectType({
           html: { type: StringType},
         }
       })
+    },
+    comments: {
+      type: new ObjectType({
+        name: 'Comments',
+        fields: () => ({
+          id: { type: IntType},
+          comment: { type: StringType},
+        })
+      })
     }
   },
 });

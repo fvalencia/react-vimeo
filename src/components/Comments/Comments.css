@@ -1,0 +1,44 @@
+@import '../variables.css';
+
+.root {
+  background: transparent;
+  color: #fff;
+}
+
+.text {
+  color: black;
+}
+
+.panel{
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	width: 80%;
+	margin: auto;		
+	margin: 0 auto;
+	max-width: var(--max-content-width);
+}
+
+.panelHeading{
+	font-weight: 600;
+	color: black;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 10px;
+}
+
+.panelBody{
+	padding: 10px 10px;
+	color: gray;
+}
+
+.pullLeft{
+	float:left;
+}
+
+.pullRight{
+	float: right;
+}
+.user{
+	float: right;
+	font-size: 12px;
+	    margin-top: 4px;
+}

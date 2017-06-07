@@ -39,6 +39,7 @@ const videos = {
             });
           }
 
+          console.log(items)
           lastFetchTask = null;
           return items;
         })

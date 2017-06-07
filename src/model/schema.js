@@ -14,6 +14,7 @@ import {
 
 import videos from './queries/video/video';
 import detail from './queries/detail/detail';
+import comments from './queries/comments/comments';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -21,6 +22,7 @@ const schema = new Schema({
     fields: {
       videos,
       detail,
+      comments,
     },
   }),
 });

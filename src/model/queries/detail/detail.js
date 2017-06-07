@@ -12,12 +12,7 @@ const fetchConfig = {
   },
 };
 
-// React.js News Feed (RSS)
 const url = 'https://api.vimeo.com/videos/';
-
-let item = {};
-let lastFetchTask;
-let lastFetchTime = new Date(1970, 0, 1);
 
 const detail = {
   type: VideoItemDto,
@@ -26,42 +21,28 @@ const detail = {
         type : IntType,
     }
   },
-  resolve(headers, params, ...args)  {
+  async resolve(headers, params, ...args)  {
     if(!params.videoId){
       console.log('Error'); //Poner un throw here
     }
 
     let fetchUrl = `${url}${params.videoId}`;
 
-    if (lastFetchTask) {
-      return lastFetchTask;
-    }
+    let result = await fetch(fetchUrl, fetchConfig)
+      .then(response => {return response.json()})
+      .then((data) => {
+        if (data) {
+          return data;
+        }
+        return null;
+      })
+      .catch((err) => {
+        throw err;
+        return null;
+    });
 
-    if ((new Date() - lastFetchTime) > 1000 * 60 * 10 /* 10 mins */) {
-      lastFetchTime = new Date();
-      lastFetchTask = fetch(fetchUrl, fetchConfig)
-        .then(response => {return response.json()})
-        .then((data) => {
-          if (data) {
-            item = data;
-          }
+    return result;
 
-          lastFetchTask = null;
-          return item;
-        })
-        .catch((err) => {
-          lastFetchTask = null;
-          throw err;
-        });
-
-      if (item) {
-        return item;
-      }
-
-      return lastFetchTask;
-    }
-
-    return item;
   },
 };
 

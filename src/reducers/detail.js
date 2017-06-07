@@ -6,7 +6,8 @@ export default function detail(state = {}, action) {
   switch (action.type) {
     case REQUEST_DETAIL_VIDEO:
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        data: null
       });
     case RECEIVE_DETAIL_VIDEO:
       return Object.assign({}, state, {

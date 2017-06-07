@@ -32,14 +32,11 @@ const comments = {
       .then(response => {return response.json()})
       .then((data) => {
         if (data.total > 0 && data.data) {
-          console.log(data.data);
             let index = data.data;
             index = index.map(e => {
                 e.user.picture = e.user.pictures ? e.user.pictures.sizes[2] : {link: 'https://placeimg.com/80/80/animals'};
-                console.log(e);
                 return e;
               });
-            console.log('hola mundo ', index);
             return index;
         }else{
           return null;

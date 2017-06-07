@@ -11,7 +11,6 @@ function requestComments() {
 
 export const RECEIVE_COMMENTS_VIDEO = 'RECEIVE_COMMENTS_VIDEO'
 function receiveComments(json) {
-  console.log('json', json);
   return {
     type: RECEIVE_COMMENTS_VIDEO,
     payload: {
@@ -25,7 +24,6 @@ export function fetchComments(videoId) {
   return (dispatch, getState, {graphqlRequest}) => {
     dispatch(requestComments());
     return getComments(videoId, graphqlRequest).then(comments => {
-      console.log('comments', comments)
       return dispatch(receiveComments(comments));
     });
   }

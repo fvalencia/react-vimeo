@@ -35,7 +35,6 @@ class Detail extends React.Component {
 }
 
 function mapStateToProps(state){
-  console.log(state);
   return {
     detail: state.detail.data,
     comments: state.comments.data

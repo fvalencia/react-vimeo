@@ -42,13 +42,11 @@ class Layout extends React.Component {
                 Navigation, account switcher, etc. go here.
             </p>
         </NavDrawer>
-         <Panel>
-            <Header toggle={this.toggleDrawerActive} />
+         <Header toggle={this.toggleDrawerActive} />
             <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
                 {this.props.children}
             </div>
             <Footer />
-        </Panel>
       </LayoutMaterial>
     );
   }

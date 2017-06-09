@@ -40,7 +40,26 @@ const VideoItemDto = new ObjectType({
           comment: { type: StringType},
         })
       })
-    }
+    },
+    user: {
+      type: new ObjectType({
+        name: 'UserCreator',
+        fields:{
+          name: { type: StringType},
+          link: { type: StringType},
+          picture: {
+            type: new ObjectType({
+              name: 'Picture',
+              fields: {
+                width: { type: IntType},
+                height: { type: IntType},
+                link: { type: StringType}
+              }
+            })
+          },
+        }
+      })
+    },
   },
 });
 

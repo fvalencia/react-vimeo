@@ -1,6 +1,6 @@
-import { GraphQLList as List } from 'graphql';
+import { GraphQLList as List, GraphQLInt as IntType, } from 'graphql';
 import fetch from 'isomorphic-fetch';
-import VideoItemDto from '../../dtos/VideoItemDto';
+import VideoList from '../../dtos/VideoListDto';
 
 const token = '787aea26e3877f7815dc2339177b581a';
 const fetchConfig = {
@@ -18,43 +18,54 @@ const url = 'https://api.vimeo.com/categories/comedy/videos';
 let items = [];
 let lastFetchTask;
 let lastFetchTime = new Date(1970, 0, 1);
+let page = 1;
+let perPage = 8;
 
 const videos = {
-  type: new List(VideoItemDto),
-  resolve() {
+  type: VideoList,
+  args: {
+    page:{
+        type : IntType,
+    },
+    perPage:{
+        type : IntType,
+    }
+  },
+  async resolve(headers, params) {
     if (lastFetchTask) {
       return lastFetchTask;
     }
 
-    if ((new Date() - lastFetchTime) > 1000 * 60 * 10 /* 10 mins */) {
-      lastFetchTime = new Date();
-      lastFetchTask = fetch(url, fetchConfig)
-        .then(response => { return response.json()})
-        .then((data) => {
-          if (data.total > 0 && data.data) {
-            items = data.data;
-            items = items.map(e => {
-              e.picture = e.pictures.sizes[2];
-              return e;
-            });
-          }
-
-          lastFetchTask = null;
-          return items;
-        })
-        .catch((err) => {
-          lastFetchTask = null;
-          throw err;
-        });
-
-      if (items.length) {
-        return items;
-      }
-
-      return lastFetchTask;
+    if(params.page){
+      page = params.page;
     }
 
-    return items;
+    if(params.perPage){
+      perPage = params.perPage;
+    }
+
+    let fetchQuery = `${url}?page=${page}&per_page=${perPage}`;
+
+    let result = await fetch(fetchQuery, fetchConfig)
+      .then(response => {return response.json()})
+      .then((data) => {
+        if (data.total > 0 && data.data) {
+          data.data = data.data.map(e => {
+            e.picture = e.pictures.sizes[2];
+            if(e.user && e.user.pictures)
+              e.user.picture = e.user.pictures.sizes[1];
+            return e;
+          });
+          return data;
+        }
+        return null;
+      })
+      .catch((err) => {
+        throw err;
+        return null;
+    });
+
+    return result;
   },
 };
 

@@ -11,8 +11,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import history from '../../history';
 import s from './Home.css';
+import LetsPaginate from '../../components/Paginate';
+import {fetchNews} from '../../actions/home';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 class Home extends React.Component {
 
@@ -26,19 +30,36 @@ class Home extends React.Component {
   };
 
   render() {
+    const videos = this.props.videos.map(item => (
+      <div key={item.uri} className={s.videoBox} onClick={(e) => this.goToDetail(item.uri, e)}>
+        <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          <div className={s.imageWrapper}>
+            {item.picture && item.picture.link && <img src={item.picture.link} className={s.imgBox} />}
+          </div>
+          <h1 className={s.titleBox}>{item.name}</h1>
+          {item.user && 
+            <div className={s.userBox}>
+              { item.user.picture && item.user.picture.link && <img src={item.user.picture.link} className={s.avatarPicture} />}
+              { item.user.name && <h1 className={s.userText} >{item.user.name}</h1>}
+            </div>}
+        </CSSTransitionGroup>
+      </div>
+    ));
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>React.js News <i className="material-icons">face</i></h1>
-          {this.props.videos && this.props.videos.map(item => (
-            <article key={item.uri} className={s.newsItem} onClick={(e) => this.goToDetail(item.uri, e)}>
-              {item.picture && item.picture.link && <img src={item.picture.link} />}
-              <h1 className={s.newsTitle}>{item.name}</h1>
-              <div className={s.newsDesc}>
-                {item.description}
-              </div>
-            </article>
-          ))}
+           <CSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+            {videos}
+           </CSSTransitionGroup>
+          {!this.props.isFetching && 
+            <LetsPaginate 
+                page = {this.props.page} 
+                per_page = {this.props.per_page} 
+                total = {this.props.total} 
+                max_page = {3}
+                clickPage = {this.props.fetchNews}
+            />
+          }
         </div>
       </div>
     );
@@ -47,9 +68,18 @@ class Home extends React.Component {
 
 function mapStateToProps(state){
   return {
-    videos: state.videos.data
+    videos: state.videos.data,
+    page: state.videos.page,
+    per_page: state.videos.per_page,
+    total: state.videos.total,
+    isFetching: state.videos.isFetching
   };
 }
 
-export default connect(mapStateToProps)(withStyles(s)(Home));
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchNews: fetchNews }, dispatch);
+}
+
+
+export default connect(mapStateToProps, matchDispatchToProps)(withStyles(s)(Home));
 
